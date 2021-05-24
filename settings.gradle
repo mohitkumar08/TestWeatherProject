@@ -1,0 +1,6 @@
+rootProject.name = "TestProject"
+include ':app'
+include ':weatherinfo'
+include ':genericresponse'
+include ':discope'
+include ':core'

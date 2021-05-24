@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TestProject</string>
+    <string name="pincode_empty_message">Please enter name of city</string>
+
+</resources>

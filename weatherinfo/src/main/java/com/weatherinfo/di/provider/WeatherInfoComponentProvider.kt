@@ -1,8 +1,7 @@
 package com.weatherinfo.di.provider
 
-import android.app.Application
-import com.base.DaggerBaseComponent
-import com.base.di.module.AppModule
+import android.content.Context
+import com.base.di.CoreComponentProvider
 import com.weatherinfo.di.DaggerWeatherInfoComponent
 import com.weatherinfo.di.WeatherInfoComponent
 
@@ -14,16 +13,11 @@ class WeatherInfoComponentProvider {
         private var weatherInfoComponent: WeatherInfoComponent? = null
 
         @JvmStatic
-        fun getBaseComponent(application: Application): WeatherInfoComponent? {
+        fun getBaseComponent(context: Context,): WeatherInfoComponent? {
             if (weatherInfoComponent == null) {
                 weatherInfoComponent = DaggerWeatherInfoComponent
                     .builder()
-                    .dependBaseComponent(
-                        DaggerBaseComponent
-                            .builder()
-                            .appModule(AppModule(application))
-                            .build()
-                    ).build()
+                    .dependBaseComponent((context as CoreComponentProvider).provideBaseComponent()).build()
             }
             return weatherInfoComponent
         }

@@ -3,7 +3,6 @@ package com.weatherinfo.weatherdetail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -39,7 +38,7 @@ class WeatherDetailActivity : CoreActivity() {
     }
 
     override fun setupActivityComponent() {
-        WeatherInfoComponentProvider.getBaseComponent(application)?.inject(this)
+        WeatherInfoComponentProvider.getBaseComponent(applicationContext)?.inject(this)
     }
 
     private fun addObserver() {

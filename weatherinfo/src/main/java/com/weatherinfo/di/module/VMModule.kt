@@ -1,7 +1,7 @@
 package com.weatherinfo.di.module
 
 import androidx.lifecycle.ViewModel
-import com.base.di.key.ViewModelKey
+import com.example.vmcore.ViewModelKey
 import com.weatherinfo.weatherdetail.WeatherDetailViewModel
 import dagger.Binds
 import dagger.Module

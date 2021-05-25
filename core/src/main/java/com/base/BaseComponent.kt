@@ -1,6 +1,7 @@
 package com.base
 
 import android.content.Context
+import androidx.lifecycle.ViewModelProvider
 import com.base.di.module.AppModule
 import com.base.di.module.NetworkModule
 import dagger.Component
@@ -22,5 +23,6 @@ interface BaseComponent {
     fun retrofitApi(): Retrofit
     fun requireContext():Context
     fun requireDisposable(): CompositeDisposable
+
 
 }

@@ -1,6 +1,5 @@
 package com.testproject.di
 
-import android.content.Context
 import com.base.BaseComponent
 import com.example.discope.AppScope
 import com.testproject.home.HomeActivity

@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.base.CoreActivity
+import com.base.di.CoreComponentProvider
 import com.testproject.R
 import com.testproject.WeatherApplication
 import com.testproject.databinding.ActivityHomeBinding
+import com.testproject.di.AppComponentProvider
 import com.weatherinfo.weatherdetail.WeatherDetailActivity
 import javax.inject.Inject
 
@@ -32,7 +34,7 @@ class HomeActivity : CoreActivity() {
     }
 
     override fun setupActivityComponent() {
-        (application as WeatherApplication).initAppComponent().inject(this)
+        (application as AppComponentProvider).provideAppComponent().inject(this)
     }
 
     private fun startWeatherActivity(cityName:String) {

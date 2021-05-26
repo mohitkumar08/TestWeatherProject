@@ -6,33 +6,32 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.base.CoreActivity
 import com.example.genericresponse.CommState
+import com.base.viewModels
 import com.weatherinfo.R
 import com.weatherinfo.databinding.ActivityMainBinding
 import com.weatherinfo.di.provider.WeatherInfoComponentProvider
 import javax.inject.Inject
+import javax.inject.Provider
 
 const val ARG_CITY_NAME = "city_name"
 
 class WeatherDetailActivity : CoreActivity() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModelProvider: Provider<WeatherDetailViewModel>
+
+    private val viewModel by viewModels { viewModelProvider }
 
     @Inject
     lateinit var context: Context
-
-    private lateinit var viewModel: WeatherDetailViewModel
 
     private lateinit var viewBinding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        viewModel =
-            ViewModelProvider(this,viewModelFactory).get(WeatherDetailViewModel::class.java)
         addObserver()
         viewModel.getWeather(intent.getStringExtra(ARG_CITY_NAME) ?: "")
     }

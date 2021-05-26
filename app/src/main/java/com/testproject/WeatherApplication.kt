@@ -12,9 +12,7 @@ import com.testproject.di.DaggerAppComponent
 
 class WeatherApplication : Application(), CoreComponentProvider, AppComponentProvider {
 
-    private val baseComponent by lazy {
-        DaggerBaseComponent.builder().appModule(AppModule(this)).build()
-    }
+    private lateinit var baseComponent: BaseComponent
 
     private lateinit var appComponent: AppComponent
 
@@ -27,17 +25,17 @@ class WeatherApplication : Application(), CoreComponentProvider, AppComponentPro
             appComponent= DaggerAppComponent.builder()
                 .dependBaseComponent(provideBaseComponent())
                  .build()
-        }
-
-    override fun provideBaseComponent(): BaseComponent {
-        return baseComponent
     }
 
+    private fun initBaseComponent() {
+        baseComponent= DaggerBaseComponent.builder().appModule(AppModule(this)).build()
+    }
 
-    companion object {
-        @JvmStatic
-        fun coreComponent(context: Context) =
-            (context.applicationContext as WeatherApplication).appComponent
+    override fun provideBaseComponent(): BaseComponent {
+        if (::baseComponent.isInitialized.not()) {
+            initBaseComponent()
+        }
+        return baseComponent
     }
 
     override fun provideAppComponent(): AppComponent {
@@ -46,5 +44,11 @@ class WeatherApplication : Application(), CoreComponentProvider, AppComponentPro
         }
         return appComponent
     }
+
+    companion object {
+        @JvmStatic
+        fun coreComponent(context: Context) = (context.applicationContext as WeatherApplication).appComponent
+    }
+
 
 }

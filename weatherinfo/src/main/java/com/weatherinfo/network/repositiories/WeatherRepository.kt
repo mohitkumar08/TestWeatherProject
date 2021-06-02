@@ -6,5 +6,5 @@ import io.reactivex.Single
 
 interface WeatherRepository {
 
-    fun getCurrentWeather(cityName:String): Single<NetworkResponse<CurrentWeatherResponse>>
+    fun getCurrentWeather(cityName:String): Single<CurrentWeatherResponse>
 }

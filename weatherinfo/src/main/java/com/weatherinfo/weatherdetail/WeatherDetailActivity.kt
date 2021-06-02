@@ -3,6 +3,7 @@ package com.weatherinfo.weatherdetail
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -29,6 +30,7 @@ class WeatherDetailActivity : CoreActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        viewBinding.weatherViewModel=viewModel
         addObserver()
         viewModel.getWeather(intent.getStringExtra(ARG_CITY_NAME) ?: "")
     }
@@ -43,20 +45,20 @@ class WeatherDetailActivity : CoreActivity() {
     }
 
     private fun addObserver() {
-        viewModel.weatherData.observe(this, {
+        viewModel.weatherDataLive.observe(this, {
                 when (it) {
                     is CommState.Loading -> {
                         viewBinding.progressBar.visibility = View.VISIBLE
                     }
                     is CommState.Success -> {
                         viewBinding.progressBar.visibility = View.GONE
-                        viewBinding.cityName.text = it.body.location.name
-                        viewBinding.temperature.text =
-                            it.body.current.temperature.toString().plus("\u2103")
                     }
                     is CommState.Error -> {
                         Toast.makeText(context, getText(R.string.generic_message_for_error), Toast.LENGTH_LONG)
                             .show()
+                    }
+                    is CommState.Complete -> {
+                        viewBinding.progressBar.visibility = View.GONE
                     }
                 }
             })

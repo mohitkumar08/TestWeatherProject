@@ -8,19 +8,19 @@ import io.reactivex.disposables.CompositeDisposable
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
+
 @Singleton
 @Component(modules = [AppModule::class, NetworkModule::class])
-interface BaseComponent {
+interface AppComponent {
 
     @Component.Builder
     interface Builder {
         fun appModule(appModule: AppModule): Builder
-        fun build(): BaseComponent
+        fun build(): AppComponent
     }
 
     fun retrofitApi(): Retrofit
     fun requireContext():Context
     fun requireDisposable(): CompositeDisposable
-
 
 }

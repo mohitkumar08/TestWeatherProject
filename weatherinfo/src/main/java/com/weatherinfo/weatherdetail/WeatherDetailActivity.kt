@@ -7,22 +7,19 @@ import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.base.CoreActivity
+import com.base.di.AppComponentProvider
 import com.example.genericresponse.CommState
-import com.base.viewModels
 import com.weatherinfo.R
 import com.weatherinfo.databinding.ActivityMainBinding
-import com.weatherinfo.di.provider.WeatherInfoComponentProvider
+import com.weatherinfo.di.DaggerWeatherInfoComponent
 import javax.inject.Inject
-import javax.inject.Provider
 
 const val ARG_CITY_NAME = "city_name"
 
 class WeatherDetailActivity : CoreActivity() {
 
     @Inject
-    lateinit var viewModelProvider: Provider<WeatherDetailViewModel>
-
-    private val viewModel by viewModels { viewModelProvider }
+    lateinit var  viewModel :WeatherDetailViewModel
 
     @Inject
     lateinit var context: Context
@@ -37,7 +34,12 @@ class WeatherDetailActivity : CoreActivity() {
     }
 
     override fun setupActivityComponent() {
-        WeatherInfoComponentProvider.getBaseComponent(applicationContext)?.inject(this)
+        DaggerWeatherInfoComponent
+            .builder()
+            .bindActivity(this)
+            .dependAppComponent((applicationContext as AppComponentProvider).provideBaseComponent())
+            .build()
+            .inject(this)
     }
 
     private fun addObserver() {

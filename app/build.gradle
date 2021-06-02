@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'scabbard.gradle'
 }
 
 android {
@@ -37,6 +38,12 @@ android {
     }
     buildFeatures {
         dataBinding = true
+    }
+    scabbard {
+        enabled true
+        failOnError true
+        fullBindingGraphValidation true
+        qualifiedNames false
     }
 }
 

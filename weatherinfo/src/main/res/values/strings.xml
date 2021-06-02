@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="generic_message_for_error">An error occurred, please try again!</string>
+    <string name="weather_detail">%d \u2103</string>
 
 </resources>

@@ -1,7 +1,6 @@
 package com.base
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
 import com.base.di.module.AppModule
 import com.base.di.module.NetworkModule
 import dagger.Component
@@ -12,17 +11,16 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(modules = [AppModule::class, NetworkModule::class])
-interface BaseComponent {
+interface AppComponent {
 
     @Component.Builder
     interface Builder {
         fun appModule(appModule: AppModule): Builder
-        fun build(): BaseComponent
+        fun build(): AppComponent
     }
 
     fun retrofitApi(): Retrofit
     fun requireContext():Context
     fun requireDisposable(): CompositeDisposable
-
 
 }

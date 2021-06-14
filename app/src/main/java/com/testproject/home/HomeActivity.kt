@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.base.CoreActivity
-import com.base.di.CoreComponentProvider
+import com.base.di.AppComponentProvider
 import com.testproject.R
-import com.testproject.WeatherApplication
 import com.testproject.databinding.ActivityHomeBinding
-import com.testproject.di.AppComponentProvider
+import com.testproject.home.di.DaggerHomeActivityComponent
+import com.testproject.home.di.HomeActivityComponent
 import com.weatherinfo.weatherdetail.WeatherDetailActivity
 import javax.inject.Inject
 
@@ -31,13 +31,21 @@ class HomeActivity : CoreActivity() {
             }
             startWeatherActivity(viewBinding.editTextNumber.text.toString())
         }
+
+
     }
 
     override fun setupActivityComponent() {
-        (application as AppComponentProvider).provideAppComponent().inject(this)
-    }
+        DaggerHomeActivityComponent
+            .builder()
+            .dependAppComponent((applicationContext as AppComponentProvider)
+            .provideBaseComponent())
+            .build()
+            .inject(this)
+ }
 
     private fun startWeatherActivity(cityName:String) {
         WeatherDetailActivity.startWeatherActivity(this, cityName)
     }
+
 }
